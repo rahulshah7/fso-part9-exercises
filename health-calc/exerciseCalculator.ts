@@ -1,3 +1,21 @@
+interface ExerciseInputs {
+    actualDailyHours: number[];
+    targetDailyHours: number;
+}
+
+const parseExerciseArguments = (args: Array<string>): ExerciseInputs => {
+    if (args.length < 4) throw new Error('Not enough arguments');
+    args = args.slice(2);
+    const numberArgs: number[] = args.map(arg => {
+        const numberArg = Number(arg);
+        if (isNaN(numberArg)) {
+            throw new Error('Provided values were not numbers!');
+        }
+        return numberArg;
+    });
+    return { actualDailyHours: numberArgs.slice(1), targetDailyHours: numberArgs[0] }
+}
+
 type Rating = [number, string];
 
 const calculateRating = (actualDailyHours: Array<number>, targetDailyHours: number) => {
@@ -42,4 +60,9 @@ const calculateExercises = (actualDailyHours: Array<number>, targetDailyHours: n
     }
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+try {
+    const { actualDailyHours, targetDailyHours } = parseExerciseArguments(process.argv);
+    console.log(calculateExercises(actualDailyHours, targetDailyHours));
+} catch (error) {
+    console.log("Error: ", error.message)
+}
