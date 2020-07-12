@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "calculateBmi": "yarn run ts-node bmiCalculator.ts"
+  },
   "devDependencies": {
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
